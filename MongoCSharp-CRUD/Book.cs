@@ -1,0 +1,114 @@
+﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+using System.Text;
+using System.Threading.Tasks;
+using System.Xml.Linq;
+
+namespace MongoCSharp_CRUD
+{
+    public class Book
+    {
+        [BsonId]
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string Id { get; private set; }
+        public string Title { get; private set; }
+        public string AuthorId { get; private set; }
+        public int Year { get; private set; }
+
+        public Book(string title, string authorId, int year) 
+        {
+            Title = title;
+            AuthorId = authorId;
+            Year = year;
+        }
+
+
+        public static (string, int) CreatBook()
+        {
+            Console.Clear();
+
+            Console.WriteLine(" =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n" +
+                              "|         REGISTRO DE LIVRO         |\n" +
+                              " =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n"
+            );
+
+            Console.Write("Informe o título do livro: ");
+            string title = Console.ReadLine()!;
+
+            while (string.IsNullOrEmpty(title))
+            {
+                Console.WriteLine("Título não pode ser vazio\n" +
+                    "Informe o título do livro ou tecle 0 para retornar");
+                title = Console.ReadLine()!;
+            }
+            if (title == "0")
+            {
+                Menu.MainMenu();
+            }
+
+            bool isInt;
+            int year;
+            do
+            {
+                Console.Write("Informe o ano de publicação do livro: ");
+                isInt = int.TryParse(Console.ReadLine()!, out year);
+                
+                if (isInt == false)
+                {
+                    Console.WriteLine("Ano não pode conter letras ou caracteres especiais\n" +
+                        "Informe o ano ou tecle 0 para retornar");
+                }
+                if (year == 0)
+                {
+                    Menu.MainMenu();
+                }
+
+            } while (isInt == false);
+
+            return (title, year);
+        }   
+
+        public void ReadBook()
+        { 
+            
+        }
+
+
+
+        public (string, int) UpdateBook()
+        {
+            Console.Write("Informe o Id do Livro: ");
+            string id = Console.ReadLine()!;
+
+            bool isInt;
+            int year;
+            do
+            {
+                Console.Write("Informe o ano de publicação do livro: ");
+                isInt = int.TryParse(Console.ReadLine()!, out year);
+
+                if (isInt == false)
+                {
+                    Console.WriteLine("Ano não pode conter letras ou caracteres especiais\n" +
+                        "Informe o ano ou tecle 0 para retornar");
+                }
+                if (year == 0)
+                {
+                    Menu.EditMenu();
+                }
+
+            } while (isInt == false);
+
+            return (id, year);
+        }
+
+
+        public void DeleteBook()
+        { }
+
+    }
+}
