@@ -41,7 +41,7 @@ namespace MongoCSharp_CRUD
             while (string.IsNullOrEmpty(name))
             {
                 Console.WriteLine("Nome não pode ser vazio\n" +
-                    "Informe o nome do Autor ou tecle 0 para retornar");
+                    "Informe o nome do Autor ou tecle 0 para retornar e cancelar a operação");
                 name = Console.ReadLine()!;
             }
             if (name == "0")
@@ -54,7 +54,7 @@ namespace MongoCSharp_CRUD
             while (string.IsNullOrEmpty(country))
             {
                 Console.WriteLine("Pais não pode ser vazio\n" +
-                    "Informe o pais do Autor ou tecle 0 para retornar");
+                    "Informe o pais do Autor ou tecle 0 para retornar e cancelar a operação");
                 country = Console.ReadLine()!;
             }
             if (country == "0")
@@ -65,14 +65,7 @@ namespace MongoCSharp_CRUD
             return (name, country);
 
         }
-
-
-        public void ReadAuthor()
-        {
-            
-        }
-
-        public (string, string) UpdateAuthor()
+        public static (string, string) UpdateAuthor()
         {
             Console.Write("Informe o Id do Autor: ");
             string id = Console.ReadLine()!;
@@ -93,9 +86,13 @@ namespace MongoCSharp_CRUD
             return (id, country);
 
         }
-
         public void DeleteAuthor()
         { }
+
+        public override string ToString()
+        {
+            return $"Id:{Id} \nNome:{Name} \nPais:{Country}";
+        }
 
     }
 }
